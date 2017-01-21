@@ -6,6 +6,69 @@ using namespace std;
 /*******************************************
  * Completez le programme a partir d'ici.
  *******************************************/
+class Auteur {
+    private:
+        string nom;
+        bool prix;
+    public:
+        Auteur(string n, bool p=false)
+            : nom(n), prix(p) {}
+        string getNom() {
+            return nom;
+        }
+        bool getPrix() {
+            return prix;
+        }
+};
+class Oeuvre {
+    private:
+        string titre;
+        Auteur& auteur;
+        string langue;
+    public:
+        Oeuvre(string t, Auteur& a, string l) 
+            : titre(t), auteur(a), langue(l) {}
+        Oeuvre(const Oeuvre& o) = delete;
+        ~Oeuvre() {
+            cout << "L'oeuvre \"" << titre << ", " << auteur.getNom() << ", en " << langue << "\" n'est plus disponible." << endl;
+        }
+        string getTitre() {
+            return titre;
+        }
+        Auteur& getAuteur() {
+            return auteur;
+        }
+        string getLangue() {
+            return langue;
+        }
+        void affiche() {
+            cout << titre << ", " << auteur.getNom() << ", en" << langue << endl;
+        }
+};
+class Exemplaire {
+    private:
+        Oeuvre& oeuvre_ref;
+    public:
+        Exemplaire(Oeuvre& o_ref) 
+            : oeuvre_ref(o_ref) {
+                cout << "Nouvel exemplaire de : " << oeuvre_ref.getTitre() << ", " << oeuvre_ref.getAuteur().getNom() << ", en" << oeuvre_ref.getLangue() << endl;
+        }
+        Exemplaire(const Exemplaire& exemplaire) 
+            : oeuvre_ref(exemplaire.oeuvre_ref) {
+                cout << "Copie d'un exemplaire de : " << oeuvre_ref.getTitre() << ", " << oeuvre_ref.getAuteur().getNom() << ", en" << oeuvre_ref.getLangue() << endl;
+            }
+        ~Exemplaire() {
+            cout << "Un exemplaire de : \"" << oeuvre_ref.getTitre() << ", " << oeuvre_ref.getAuteur().getNom() << ", en" << oeuvre_ref.getLangue() << "\" a été jeté !"<< endl;
+        }
+        const Oeuvre& getOeuvre() {
+            return oeuvre_ref;
+        }
+        void affiche() {
+            cout << "Exemplaire de : " << oeuvre_ref.getTitre() << ", " << oeuvre_ref.getAuteur().getNom() << ", en" << oeuvre_ref.getLangue();
+            
+        }
+
+};
 // Chaines de caractères à utiliser pour les affichages:
 /*
 

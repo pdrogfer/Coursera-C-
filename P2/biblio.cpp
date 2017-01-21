@@ -38,7 +38,7 @@ class Oeuvre {
         Auteur& getAuteur() {
             return auteur;
         }
-        string getLangue() {
+        string getLangue() const {
             return langue;
         }
         void affiche() {
@@ -65,27 +65,43 @@ class Exemplaire {
         }
         void affiche() {
             cout << "Exemplaire de : " << oeuvre_ref.getTitre() << ", " << oeuvre_ref.getAuteur().getNom() << ", en" << oeuvre_ref.getLangue();
-            
         }
-
 };
-// Chaines de caractères à utiliser pour les affichages:
-/*
-
-été jeté
-
-d'un
-
-n'est
-
-L'oeuvre
-
-bibliothèque
-
-détruit
-
-*/
-
+class Bibliotheque {
+    private:
+        string nom;
+        vector<Exemplaire> exemplaires;
+    public:
+        Bibliotheque(string n)
+            : nom(n) {
+                exemplaires.reserve(10);
+                cout << "La bibliothèque " << nom << " est ouverte !" << endl;
+            }
+        string getNom() {
+            return nom;
+        }
+        void stocker(Oeuvre& o_ref, int n = 1) {
+            // add the new copies to the vector
+            Exemplaire new_ex(o_ref);
+            for (int i = 0; i < n; i++) {
+                exemplaires.push_back(new_ex);   
+            }
+        }
+        void lister_exemplaires(string langue = "") const {
+            if(langue == "") {
+                for(Exemplaire ex: exemplaires) {
+                    ex.affiche();
+                }
+            } else {
+                for(Exemplaire ex: exemplaires) {
+                    if (ex.getOeuvre().getLangue() == langue) {
+                        ex.affiche();
+                    }
+                }
+            }
+        }
+            
+};
 /*******************************************
  * Ne rien modifier apres cette ligne.
  *******************************************/

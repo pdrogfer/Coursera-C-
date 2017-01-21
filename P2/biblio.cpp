@@ -32,10 +32,10 @@ class Oeuvre {
         ~Oeuvre() {
             cout << "L'oeuvre \"" << titre << ", " << auteur.getNom() << ", en " << langue << "\" n'est plus disponible." << endl;
         }
-        string getTitre() {
+        string getTitre() const {
             return titre;
         }
-        Auteur& getAuteur() {
+        Auteur& getAuteur() const {
             return auteur;
         }
         string getLangue() const {
@@ -91,14 +91,26 @@ class Bibliotheque {
             if(langue == "") {
                 for(Exemplaire ex: exemplaires) {
                     ex.affiche();
+                    cout << endl;
                 }
             } else {
                 for(Exemplaire ex: exemplaires) {
                     if (ex.getOeuvre().getLangue() == langue) {
                         ex.affiche();
+                        cout << endl;
                     }
                 }
             }
+        }
+
+        int compter_exemplaires(Oeuvre oeuvre) {
+            int existences = 0;
+            for(Exemplaire ex: exemplaires) {
+                if(oeuvre.getTitre() == ex.getOeuvre().getTitre()) {
+                    existences++;
+                }
+            }
+            return existences;
         }
             
 };

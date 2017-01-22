@@ -76,7 +76,11 @@ class Bibliotheque {
             : nom(n) {
                 exemplaires.reserve(10);
                 cout << "La bibliothèque " << nom << " est ouverte !" << endl;
-            }
+        }
+        ~Bibliotheque() {
+            cout << "La bibliothèque " << nom << "ferme ses portes, et détruit ses exemplaires :" << endl;
+            exemplaires.clear();
+        }
         string getNom() {
             return nom;
         }
@@ -102,8 +106,7 @@ class Bibliotheque {
                 }
             }
         }
-
-        int compter_exemplaires(Oeuvre oeuvre) {
+        int compter_exemplaires(Oeuvre& oeuvre) {
             int existences = 0;
             for(Exemplaire ex: exemplaires) {
                 if(oeuvre.getTitre() == ex.getOeuvre().getTitre()) {
@@ -112,7 +115,20 @@ class Bibliotheque {
             }
             return existences;
         }
-            
+        void afficher_auteurs(bool awarded = false) {
+            if(!awarded) {
+                for(Exemplaire e : exemplaires) {
+                    cout << e.getOeuvre().getAuteur().getNom() << endl;
+                }
+            } else {
+                for(Exemplaire e : exemplaires) {
+                    if(e.getOeuvre().getAuteur().getPrix()) {
+                        cout << e.getOeuvre().getAuteur().getNom() << endl;
+                    }
+                }
+            }
+        }    
+
 };
 /*******************************************
  * Ne rien modifier apres cette ligne.
